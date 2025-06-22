@@ -44,11 +44,9 @@ This project classifies tweets from the Sentiment140 dataset as **Positive**, **
 | Model               | Accuracy |
 |--------------------|----------|
 | Logistic Regression| 82.4%    |
-| Random Forest      | 79.2%    |
+| Random Forest      | 64.0%    |
 | Naive Bayes        | 77.5%    |
-| DNN                | 81.8%    |
-
-> *Note: Replace with actual results from your run.*
+| DNN                | 77.67%    |
 
 ## 🚀 How to Run
 
