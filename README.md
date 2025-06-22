@@ -84,6 +84,19 @@ We trained a memory-efficient feedforward neural network using **TensorFlow** an
 - Runs 10x faster than earlier row-wise implementations
 
 #### 🔧 Model Architecture:
+Input → Dense(128, relu) → Dropout(0.3)
+→ Dense(64, relu) → Dropout(0.2)
+→ Output Layer (Softmax)
+
+
+#### 🔁 Optimizations:
+- Batch size = 64
+- Early stopping on validation accuracy
+- GPU memory growth configured
+- Only `clear_session()` before training (not after every batch)
+
+> This DNN model balances speed, accuracy, and memory usage for large-scale sentiment classification.
+
 
 ---
 
