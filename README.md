@@ -71,6 +71,20 @@ We map them to `Negative`, `Neutral`, and `Positive` classes respectively for ea
 | **Random Forest (Fast Mode)** | Ensemble of decision trees with shallow depth | Good performance, optimized speed | Less accurate than full version |
 | **Deep Neural Network (DNN)** | Multi-layer perceptron with dropout | Captures complex patterns | Slower, memory intensive |
 
+
+
+### 🧠 Deep Neural Network (DNN)
+
+We trained a memory-efficient feedforward neural network using **TensorFlow** and `tf.data` API to handle the 1.6 million tweet records from Sentiment140.
+
+#### ✅ Features:
+- Dense architecture with dropout regularization
+- Uses `tf.data.Dataset.from_generator()` to avoid loading entire dataset into RAM
+- Converts sparse TF-IDF vectors to dense only in batches, preserving memory
+- Runs 10x faster than earlier row-wise implementations
+
+#### 🔧 Model Architecture:
+
 ---
 
 ## 🧪 Model Evaluation Summary
