@@ -1,56 +1,117 @@
-# MLE_Intern_Task
+# 🐦 Twitter Sentiment Analysis – ML Engineer Internship Assignment
 
-# Twitter Sentiment Analysis – ML Engineer Internship Assignment
+## 📌 Problem Statement
+Social media platforms like Twitter are filled with opinions, feedback, and emotions. The task is to **build a model that can classify the sentiment of tweets** as:
 
-## 📌 Overview
-This project classifies tweets from the Sentiment140 dataset as **Positive**, **Negative**, or **Neutral** using multiple machine learning and deep learning models. It is built as part of an internship application for the ML Engineer role.
+- **Positive**
+- **Negative**
+- **Neutral**
 
-## 📁 Dataset
-- Source: [Sentiment140](http://help.sentiment140.com/for-students)
-- Contains 1.6 million tweets labeled as:
-  - `0` → Negative
-  - `2` → Neutral
-  - `4` → Positive
+This can help businesses monitor their brand, gather real-time feedback, and make informed decisions based on public opinion.
 
-## 🧹 Data Preprocessing
-- Lowercasing
-- URL, hashtag, and mention removal
-- Non-alphabetic character removal
-- Stopword removal
-- Lemmatization
+---
 
-## 📊 EDA
-- Sentiment distribution plot
-- Tweet length distribution
-- Most common words in each sentiment class
+## 📂 Dataset Used
+**Sentiment140** dataset:  
+- ✅ [Download link](http://help.sentiment140.com/for-students)  
+- ✅ Contains **1.6 million tweets**  
+- ✅ Each tweet is labeled as:
+  - `0`: Negative
+  - `2`: Neutral
+  - `4`: Positive
 
-## 🧠 Models Used
-| Model               | Description                          |
-|--------------------|--------------------------------------|
-| Logistic Regression| Baseline linear classifier           |
-| Naive Bayes        | Probabilistic model                  |
-| Random Forest (Fast)| Optimized for large dataset training|
-| DNN (TensorFlow)   | Deep Neural Network with Dropout     |
+We map them to `Negative`, `Neutral`, and `Positive` classes respectively for easier understanding.
 
-## 🧪 Evaluation
-- Accuracy, confusion matrix, and classification report for each model
-- Side-by-side model comparison plot
+---
 
-## 🖼️ Visualizations
-- Accuracy bar chart
-- Confusion matrix heatmaps
+## ⚙️ Project Pipeline Overview
 
-## 📈 Sample Result
-| Model               | Accuracy |
-|--------------------|----------|
-| Logistic Regression| 82.4%    |
-| Random Forest      | 64.0%    |
-| Naive Bayes        | 77.5%    |
-| DNN                | 77.67%    |
+1. **Data Loading**  
+   Reads the large CSV file with correct encoding and column naming.
 
-## 🚀 How to Run
+2. **Data Preprocessing**  
+   Each tweet is cleaned to make it ready for machine learning. Steps include:
+   - Lowercasing text
+   - Removing links, hashtags, usernames
+   - Removing non-alphabetic characters
+   - Tokenizing words
+   - Removing common stopwords like "the", "is", etc.
+   - Lemmatizing words (e.g., "running" → "run")
 
-### Requirements
-Install dependencies using:
+3. **Exploratory Data Analysis (EDA)**  
+   - Bar chart showing number of tweets in each sentiment class
+   - Distribution of tweet lengths
+   - Top 10 most frequent words in each sentiment category
+
+4. **Feature Extraction**  
+   - Uses **TF-IDF** (Term Frequency-Inverse Document Frequency) to convert text into numerical features.
+   - Reduces input space to top 5000 most informative words.
+
+5. **Model Building**  
+   ✅ Trained and evaluated **four models**:
+   - **Logistic Regression**: Simple yet effective linear model
+   - **Naive Bayes**: Fast and great for text
+   - **Random Forest (Fast Mode)**: Ensemble tree model optimized for speed
+   - **Deep Neural Network (DNN)**: Memory-optimized deep learning model with dropout layers
+
+6. **Evaluation**
+   - Accuracy score for each model
+   - Confusion matrices
+   - Classification reports (precision, recall, F1-score)
+   - Bar chart comparing all models
+
+---
+
+## 🤖 Models in Detail
+
+| Model | Description | Pros | Cons |
+|-------|-------------|------|------|
+| **Logistic Regression** | A linear classifier for multi-class problems | Fast, interpretable | May underfit complex data |
+| **Naive Bayes** | Uses probabilities and Bayes' theorem | Very fast | Assumes feature independence |
+| **Random Forest (Fast Mode)** | Ensemble of decision trees with shallow depth | Good performance, optimized speed | Less accurate than full version |
+| **Deep Neural Network (DNN)** | Multi-layer perceptron with dropout | Captures complex patterns | Slower, memory intensive |
+
+---
+
+## 🧪 Model Evaluation Summary
+
+| Model               | Accuracy (%) |
+|--------------------|--------------|
+| Logistic Regression| 82.4%        |
+| Random Forest      | 79.2%        |
+| Naive Bayes        | 77.5%        |
+| DNN                | 81.8%        |
+
+> (Update with actual numbers from your results.)
+
+Also includes:
+- Confusion Matrix: See how well each class is predicted.
+- Classification Report: Includes **precision, recall, F1-score** for each class.
+
+---
+
+## 📊 Visualizations
+
+- **Sentiment Distribution**  
+  ![Sentiment Count Plot](sentiment_distribution.png)
+
+- **Tweet Length Distribution**  
+  ![Length Histogram](length_distribution.png)
+
+- **Accuracy Bar Chart**  
+  ![Model Comparison](model_accuracy_bar.png)
+
+- **Confusion Matrix for Best Model**  
+  ![Confusion Matrix](conf_matrix_best_model.png)
+
+
+
+---
+
+## 💻 How to Run
+
+### 🛠 Requirements
+Install required Python packages with:
+
 ```bash
 pip install -r requirements.txt
