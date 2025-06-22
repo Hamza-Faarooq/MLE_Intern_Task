@@ -104,10 +104,10 @@ Input → Dense(128, relu) → Dropout(0.3)
 
 | Model               | Accuracy (%) |
 |--------------------|--------------|
-| Logistic Regression| 82.4%        |
-| Random Forest      | 79.2%        |
-| Naive Bayes        | 77.5%        |
-| DNN                | 81.8%        |
+| Logistic Regression| 77.47%        |
+| Random Forest      | 64.09%        |
+| Naive Bayes        | 75.77%        |
+| DNN                | 78.56%        |
 
 > (Update with actual numbers from your results.)
 
@@ -116,22 +116,6 @@ Also includes:
 - Classification Report: Includes **precision, recall, F1-score** for each class.
 
 ---
-
-## 📊 Visualizations
-
-- **Sentiment Distribution**  
-  ![Sentiment Count Plot](sentiment_distribution.png)
-
-- **Tweet Length Distribution**  
-  ![Length Histogram](length_distribution.png)
-
-- **Accuracy Bar Chart**  
-  ![Model Comparison](model_accuracy_bar.png)
-
-- **Confusion Matrix for Best Model**  
-  ![Confusion Matrix](conf_matrix_best_model.png)
-
-
 
 ---
 
