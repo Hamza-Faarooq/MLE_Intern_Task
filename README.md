@@ -109,8 +109,6 @@ Input → Dense(128, relu) → Dropout(0.3)
 | Naive Bayes        | 75.77%        |
 | DNN                | 78.56%        |
 
-> (Update with actual numbers from your results.)
-
 Also includes:
 - Confusion Matrix: See how well each class is predicted.
 - Classification Report: Includes **precision, recall, F1-score** for each class.
