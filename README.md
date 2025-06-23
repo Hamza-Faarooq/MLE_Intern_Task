@@ -22,7 +22,7 @@ This can help businesses monitor their brand, gather real-time feedback, and mak
 
 ## 📂 Dataset Used
 **Sentiment140** dataset:  
-- ✅ [Download link]([http://help.sentiment140.com/for-students](https://www.kaggle.com/datasets/kazanova/sentiment140))  
+- ✅ [Download link]((https://www.kaggle.com/datasets/kazanova/sentiment140))  
 - ✅ Contains **1.6 million tweets**  
 - ✅ Each tweet is labeled as:
   - `0`: Negative
