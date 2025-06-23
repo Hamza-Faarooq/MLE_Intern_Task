@@ -1,5 +1,14 @@
 # 🐦 Twitter Sentiment Analysis – ML Engineer Internship Assignment
 
+
+
+## Files attached in the Repository
+- Jupyter Notebook (.ipynb file) having my code with output
+- Python code file
+- Evaluation report
+
+
+
 ## 📌 Problem Statement
 Social media platforms like Twitter are filled with opinions, feedback, and emotions. The task is to **build a model that can classify the sentiment of tweets** as:
 
