@@ -38,16 +38,42 @@ from tensorflow.keras import backend as K
 from google.colab import drive
 drive.mount("/content/drive")
 
+"""# **Sentiment counts in our original dataset**"""
+
 # Specify the encoding as 'latin-1' to handle characters that are not valid in utf-8
 # Added engine='python' to handle potential parsing issues with delimiters or quoting
 # Explicitly setting sep and quotechar based on standard CSV format
-data = pd.read_csv("/content/training.1600000.processed.noemoticon.csv",
+data1 = pd.read_csv("/content/drive/MyDrive/training.1600000.processed.noemoticon.csv",
                    encoding='latin-1',
                    engine='python',
                    sep=',',          # Explicitly set the separator to comma
                    quotechar='"' ,
                    on_bad_lines='skip'# Explicitly set the quote character to double quote
                   )
+
+data1
+
+data1['0'] == 2
+
+"""### **DATA1 was the dataframe used to find the overall distribution of all the three sentiments in the 1.6 million tweets in our dataset.**
+
+## **DATA is going to be our main dataframe used for all the operations**
+"""
+
+# Specify the encoding as 'latin-1' to handle characters that are not valid in utf-8
+# Added engine='python' to handle potential parsing issues with delimiters or quoting
+# Explicitly setting sep and quotechar based on standard CSV format
+data = pd.read_csv("/content/drive/MyDrive/training.1600000.processed.noemoticon.csv",
+                   encoding='latin-1',
+                   engine='python',
+                   sep=',',          # Explicitly set the separator to comma
+                   quotechar='"' ,
+                   on_bad_lines='skip'# Explicitly set the quote character to double quote
+                  )
+
+data
+
+data1['0'].value_counts()
 
 """# **DATA PRE PROCESSING**
 
@@ -57,6 +83,12 @@ data = pd.read_csv("/content/training.1600000.processed.noemoticon.csv",
 data.columns = ['sentiment', 'tweet_id', 'date', 'query', 'user', 'text']
 sentiment_map = {0: 'negative', 2: 'neutral', 4: 'positive'}
 data['sentiment'] = data['sentiment'].map(sentiment_map)
+
+print(data['text'].isnull())
+
+print(data['text'].isnull().sum)
+
+print(data['sentiment'].value_counts())
 
 """# **CLEANING THE TWEETS**
 ### Cleaned each tweet by removing URLs, mentions, hashtags, non-alphabetic characters, and stopwords. Applied lemmatization using NLTK to normalize the words. This prepares the data for feature extraction.
@@ -77,6 +109,13 @@ def clean_text(text):
     return ' '.join(tokens)
 
 data['clean_text'] = data['text'].apply(clean_text)
+
+# Remove empty cleaned tweets (important for neutral class)
+data = data[data['clean_text'].str.strip().astype(bool)]
+
+# Check class distribution after cleaning
+print("Class distribution after cleaning:")
+print(data['sentiment'].value_counts())
 
 """# **EXPLORATORY DATA ANALYSIS (EDA)**
 ### Performed basic EDA to understand the class distribution of sentiments and analyze the length of cleaned tweets. Also identified the most common words for each sentiment category.
@@ -119,11 +158,32 @@ for sentiment in ['negative', 'neutral', 'positive']:
     common_words = Counter(words).most_common(10)
     print(f"Most common words in {sentiment} tweets:", common_words)
 
+from sklearn.model_selection import train_test_split
+
 X = data['clean_text']
 y = data['sentiment']
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Stratified split to preserve all classes
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+
+"""# **Sentiments in the TEST and TRAIN Datasets**"""
+
+# After train_test_split
+print("Train sentiment counts:")
+print(y_train.value_counts())
+print("\nTest sentiment counts:")
+print(y_test.value_counts())
 
 """### Used TfidfVectorizer to convert cleaned text into numeric feature vectors. Limited to the top 5000 features to reduce dimensionality while retaining meaningful context."""
+
+from sklearn.preprocessing import LabelEncoder
+
+le = LabelEncoder()
+le.fit(['negative', 'neutral', 'positive'])  # Ensure all classes included
+y_train_enc = le.transform(y_train)
+y_test_enc = le.transform(y_test)
 
 vectorizer = TfidfVectorizer(max_features=5000)
 X_train_vec = vectorizer.fit_transform(X_train)
@@ -495,5 +555,12 @@ def predict_sentiment(tweet):
 """# **RESULTS FOR THREE DIFFERENT SENTENCES**"""
 
 predict_sentiment("I absolutely love this new phone! It's amazing.🔥")
+print("--------------------------------------------------------")
 predict_sentiment("The update ruined everything. I'm so disappointed.")
+print("--------------------------------------------------------")
 predict_sentiment("It's okay, not good, not bad.")
+
+"""### From this, it is clear the original dataset has no neutral sentiments in any of the tweets.
+
+The absence of neutral tweets in our dataset is the primary reason of its absence during prediction. As is visible in the notebook, the number of neutral tweets were 0. It is obvious there would be no predictions of the neutral sentiments.
+"""
